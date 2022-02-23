@@ -11,7 +11,21 @@ typedef struct {
 
 double calc_dist(Coord *a, Coord *b)
 {
-	return sqrt(pow((a->x) - (b->x), 2.0) + pow((a->y) - (b->y), 2.0));
+	return sqrt(pow((double)(a->x) - (b->x), 2.0) + pow((double)(a->y) - (b->y), 2.0));
+}
+
+int cnt[N + 1] = { 0 };
+
+void count(int n)
+{
+	cnt[n]++;
+	if (cnt[n] > n) {
+		cnt[n] = 0;
+		count(n + 1);
+	}
+	else {
+		printf("%d\n", n);
+	}
 }
 
 int main(void)
@@ -34,6 +48,10 @@ int main(void)
 			dist[i][j] = calc_dist(&toshi[i], &toshi[j]);
 			dist[j][i] = dist[i][j];
 		}
+
+	do {
+		count(1);
+	} while (cnt[N] != 1);
 
 	return 0;
 }
