@@ -2,6 +2,8 @@
 #include <math.h>
 #define N 5
 
+double dist[N][N] = { {0} };
+
 typedef struct {
 	int x;
 	int y;
@@ -14,7 +16,7 @@ double calc_dist(Coord *a, Coord *b)
 
 int main(void)
 {
-	int i;
+	int i, j;
 	Coord toshi[N] = {
 		{80, 85},
 		{60, 50},
@@ -27,7 +29,11 @@ int main(void)
 		printf("%d : %d, %d\n", i, toshi[i].x, toshi[i].y);
 	}
 
-	
+	for (i = 0; i < N; i++)
+		for (j = i + 1; j < N; j++) {
+			dist[i][j] = calc_dist(&toshi[i], &toshi[j]);
+			dist[j][i] = dist[i][j];
+		}
 
 	return 0;
 }
