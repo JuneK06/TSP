@@ -3,6 +3,7 @@
 #define N 5
 
 double dist[N][N] = { {0} };
+double best = 0;
 
 typedef struct {
 	int x;
@@ -14,6 +15,27 @@ double calc_dist(Coord *a, Coord *b)
 	return sqrt(pow((double)(a->x) - (b->x), 2.0) + pow((double)(a->y) - (b->y), 2.0));
 }
 
+int comb[N];
+
+void swap(int i)
+{
+	int tmp = comb[0];
+	comb[0] = comb[i];
+	comb[i] = tmp;
+}
+
+void sum()
+{
+	double tmp = 0;
+	int i;
+	for (i = 0; i < N; i++) {
+		tmp += dist[comb[i]][comb[(i + 1) % N]];
+	}
+	if (best > tmp) {
+		best = tmp;
+	}
+}
+
 int cnt[N + 1] = { 0 };
 
 void count(int n)
@@ -23,8 +45,9 @@ void count(int n)
 		cnt[n] = 0;
 		count(n + 1);
 	}
-	else {
-		printf("%d\n", n);
+	else if (cnt[N] == 0) {
+		swap(n);
+		sum();
 	}
 }
 
@@ -40,6 +63,7 @@ int main(void)
 	};
 
 	for (i = 0; i < N; i++) {
+		comb[i] = i;
 		printf("%d : %d, %d\n", i, toshi[i].x, toshi[i].y);
 	}
 
@@ -49,9 +73,15 @@ int main(void)
 			dist[j][i] = dist[i][j];
 		}
 
+	for (i = 0; i < N; i++) {
+		best += dist[i][(i + 1) % N];
+	}
+
 	do {
 		count(1);
-	} while (cnt[N] != 1);
+	} while (cnt[N] == 0);
+
+	printf("最短距離：%f\n", best);
 
 	return 0;
 }
