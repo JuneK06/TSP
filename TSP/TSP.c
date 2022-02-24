@@ -4,6 +4,9 @@
 
 double dist[N][N] = { {0} };
 double best = 0;
+int comb[N];
+int cnt[N + 1] = { 0 };
+int index[N];
 
 typedef struct {
 	int x;
@@ -14,8 +17,6 @@ double calc_dist(Coord *a, Coord *b)
 {
 	return sqrt(pow((double)(a->x) - (b->x), 2.0) + pow((double)(a->y) - (b->y), 2.0));
 }
-
-int comb[N];
 
 void swap(int i)
 {
@@ -33,10 +34,11 @@ void sum()
 	}
 	if (best > tmp) {
 		best = tmp;
+		for (i = 0; i < N; i++) {
+			index[i] = comb[i];
+		}
 	}
 }
-
-int cnt[N + 1] = { 0 };
 
 void count(int n)
 {
@@ -82,6 +84,11 @@ int main(void)
 	} while (cnt[N] == 0);
 
 	printf("最短距離：%f\n", best);
+	printf("経路：");
+	for (i = 0; i < N; i++) {
+		printf("%d→", index[i]);
+	}
+	printf("%d\n", index[0]);
 
 	return 0;
 }
