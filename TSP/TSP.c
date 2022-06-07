@@ -46,29 +46,31 @@ void route(int cnt, int v[])
 {
 	int i, j;
 	int tmp[N];
-	v[cnt] = cnt;
+
+	for (i = 0; i < N; i++) {
+		tmp[i] = v[i];
+	}
+
+	tmp[cnt] = cnt;
 
 	for (i = cnt; i > 0; i--) {
+		/* デバック用 */
 		for (j = 0; j < N; j++) {
-			tmp[j] = v[j];
-			printf("%d", v[j]);
+			printf("%d", tmp[j]);
 		}
 		putchar('\n');
 
 		if (cnt < N - 1) {
-			route(cnt + 1, v);
-			for (j = 0; j < N; j++) {
-				v[j] = tmp[j];
-			}
+			route(cnt + 1, tmp);
 		}
 		else {
-			sum(v);
+			sum(tmp);
 		}
 
 		if (cnt < 3 || i == 1) {
 			break;
 		}
-		swap(i, i - 1, v);
+		swap(i, i - 1, tmp);
 	}
 }
 
