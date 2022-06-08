@@ -86,6 +86,15 @@ void main(void)
 		{20, 25},
 	};
 
+	/* 都市の座標をキーボードから入力 */
+	printf("都市の数：%d\n", N);
+	printf("座標を入力してください。\n");
+	for (i = 0; i < N; i++) {
+		printf("都市%d\n", i + 1);
+		printf("　x座標："); scanf("%d", &city[i].x);
+		printf("　y座標："); scanf("%d", &city[i].y);
+	}
+
 	/* 各都市の座標の表示 */
 	for (i = 0; i < N; i++) {
 		printf("%d : %d, %d\n", i, city[i].x, city[i].y);
