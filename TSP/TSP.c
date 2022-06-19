@@ -54,12 +54,12 @@ void route(int cnt, int v[])
 	tmp[cnt] = cnt;
 
 	for (i = cnt; i > 0; i--) {
-		/* デバック用 */
+		/* ---デバッグ用--- 
 		for (j = 0; j < N; j++) {
 			printf("%d", tmp[j]);
 		}
 		putchar('\n');
-
+		 ------ */
 		if (cnt < N - 1) {
 			route(cnt + 1, tmp);
 		}
@@ -78,6 +78,8 @@ void main(void)
 {
 	int i, j;
 	int v[N] = { 0 };
+
+	/* ---都市の座標--- */
 	City city[N] = {
 		{80, 85},
 		{60, 50},
@@ -85,8 +87,9 @@ void main(void)
 		{30, 40},
 		{20, 25},
 	};
+	/* ------ */
 
-	/* 都市の座標をキーボードから入力 */
+	/* ---都市の座標をキーボードから入力--- 
 	printf("都市の数：%d\n", N);
 	printf("座標を入力してください。\n");
 	for (i = 0; i < N; i++) {
@@ -94,6 +97,7 @@ void main(void)
 		printf("　x座標："); scanf("%d", &city[i].x);
 		printf("　y座標："); scanf("%d", &city[i].y);
 	}
+	 ------ */
 
 	/* 各都市の座標の表示 */
 	for (i = 0; i < N; i++) {
